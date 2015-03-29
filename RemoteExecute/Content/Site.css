@@ -1,0 +1,11 @@
+﻿body {
+    padding: 15px;
+    font-family: Calibri, Arial;
+}
+
+.command-header {
+    border-left: solid 4px black;
+    padding-left: 10px;
+    user-select: none;
+    cursor: move;
+}

@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "Commannd Executor";
+}
+
+<h1>Command Executor</h1>
+
+<div class="commands" data-bind="foreach: commands">
+    <div class="command">
+        <p>
+            <div class="command-header"><h2><span data-bind="text: type"></h2></div>
+            Server:
+            <select data-bind="options: $parent.commandTypes[type]"></select>
+        </p>
+        <textarea cols="100" rows="10" data-bind="value: text"></textarea>
+    </div>
+</div>
+
+<div>
+    New Command: 
+    <select data-bind="value: selectedCommand, options: Object.keys(commandTypes)"></select>
+    <a href="#" data-bind="click: addCommand">Add</a>
+</div>
+<p>
+    <button id="saveButton">Save</button>
+</p>
+
+@section scripts {
+    <script src="~/Scripts/ViewModels/CommandViewModel.js"></script>
+    <script src="~/Scripts/ViewModels/MainViewModel.js"></script>
+
+    <script type="text/javascript">
+        $(function() {
+            $(".commands").sortable({
+                handle: ".command-header",
+            });
+            ko.applyBindings(new MainViewModel());
+
+            $("#saveButton").click(function (event) {
+                var commands = [];
+
+                $(".command").each(function (index, item) {
+                    var command = ko.dataFor(item);
+                    commands.push(ko.toJS(command));
+                });
+
+                event.preventDefault();
+            });
+        });
+    </script>
+}
