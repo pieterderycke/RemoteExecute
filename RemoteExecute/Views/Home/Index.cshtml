@@ -44,6 +44,13 @@
                     commands.push(ko.toJS(command));
                 });
 
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/Save",
+                    data: { commands: commands },
+                    dataType: 'json',
+                });
+
                 event.preventDefault();
             });
         });

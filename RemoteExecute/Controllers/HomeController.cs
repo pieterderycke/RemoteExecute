@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RemoteExecute.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +13,12 @@ namespace RemoteExecute.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Save(IEnumerable<Command> commands)
+        {
+            return null;
         }
     }
 }
