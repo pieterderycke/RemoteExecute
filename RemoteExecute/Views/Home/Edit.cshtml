@@ -1,0 +1,65 @@
+﻿@model RemoteExecute.Models.CommandEditViewModel
+@{
+    ViewBag.Title = "Command Executor";
+}
+
+<h1>Command Set "<span data-bind="text: name"></span>"</h1>
+<div style="margin-bottom: 10px;">
+    Name: <input type="text" data-bind="value: name, valueUpdate: 'input'" />
+</div>
+<div class="commands" data-bind="foreach: commands">
+    <div class="command">
+        <p>
+            <div class="command-header"><h2><span data-bind="text: type"></h2></div>
+            Server:
+            <select data-bind="options: $parent.commandTypes[type]"></select>
+        </p>
+        <textarea cols="100" rows="10" data-bind="value: text"></textarea>
+    </div>
+</div>
+
+<div>
+    New Command: 
+    <select data-bind="value: selectedCommand, options: Object.keys(commandTypes)"></select>
+    <a href="#" data-bind="click: addCommand">Add</a>
+</div>
+<p>
+    <button id="saveButton">Save</button>
+</p>
+
+@section scripts {
+    <script src="~/Scripts/ViewModels/CommandViewModel.js"></script>
+    <script src="~/Scripts/ViewModels/MainViewModel.js"></script>
+
+    <script type="text/javascript">
+        $(function() {
+            $(".commands").sortable({
+                handle: ".command-header",
+            });
+            ko.applyBindings(new MainViewModel("@Model.Name", @Html.Raw(Model.Commands)));
+
+            $("#saveButton").click(function (event) {
+                var commands = [];
+
+                var vm = ko.contextFor(this).$root;
+                var name = vm.name();
+
+                $(".command").each(function (index, item) {
+                    var command = ko.dataFor(item);
+                    commands.push(ko.toJS(command));
+                });
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/Save",
+                    data: { name: name, isNewCommand: @Model.IsNewCommand.ToString().ToLowerInvariant(), id: @(Model.Id.HasValue ? Model.Id.Value : -1), commands: commands },
+                    dataType: 'json',
+                }).success(function() {
+                    window.location = "@Url.Action("Index")";
+                });
+
+                event.preventDefault();
+            });
+        });
+    </script>
+}

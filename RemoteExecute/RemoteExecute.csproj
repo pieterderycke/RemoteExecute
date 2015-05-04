@@ -39,6 +39,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.4.0\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc">
+      <HintPath>..\packages\Autofac.Mvc5.3.3.3\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -153,6 +159,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -163,7 +170,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Command.cs" />
+    <Compile Include="Models\CommandEditViewModel.cs" />
+    <Compile Include="Models\CommandSetSummaryViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -236,6 +244,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -243,6 +252,20 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RemoteExecute.DataLayer\RemoteExecute.DataLayer.csproj">
+      <Project>{e43430f6-9dd7-49e9-b9f5-e6d43abcca89}</Project>
+      <Name>RemoteExecute.DataLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RemoteExecute.Domain\RemoteExecute.Domain.csproj">
+      <Project>{eda964c8-b0fb-4a79-85d2-ffd6f89bc3ed}</Project>
+      <Name>RemoteExecute.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RemoteExecute.Stubs\RemoteExecute.Stubs.csproj">
+      <Project>{ce2ef036-49d8-4e5e-bedf-d88360347f92}</Project>
+      <Name>RemoteExecute.Stubs</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

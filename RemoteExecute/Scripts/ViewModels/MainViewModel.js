@@ -1,7 +1,8 @@
-﻿function MainViewModel() {
+﻿function MainViewModel(name, commands) {
     var self = this;
 
-    self.commands = ko.observableArray();
+    self.name = ko.observable(name);
+    self.commands = ko.observableArray(commands);
     self.selectedCommand = ko.observable();
     self.commandTypes = { 'SSH': ['Mac Server', 'Synology NAS'], 'PowerShell': ['A Windows Server'] };
 
