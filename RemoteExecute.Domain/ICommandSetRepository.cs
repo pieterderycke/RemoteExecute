@@ -11,5 +11,6 @@ namespace RemoteExecute.Domain
         IEnumerable<CommandSet> GetCommandSets();
         CommandSet GetCommandSet(int id);
         void AddCommandSet(CommandSet command);
+        void UpdateCommandSet(int id, string name, IEnumerable<Command> commands);
     }
 }

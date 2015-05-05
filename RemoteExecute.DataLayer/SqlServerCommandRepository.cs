@@ -23,5 +23,10 @@ namespace RemoteExecute.DataLayer
         {
             throw new NotImplementedException();
         }
+
+        public void UpdateCommandSet(int id, string name, IEnumerable<Command> commands)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

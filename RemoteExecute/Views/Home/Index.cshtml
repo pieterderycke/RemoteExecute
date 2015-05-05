@@ -8,8 +8,25 @@
 <ul>
     @foreach (RemoteExecute.Domain.CommandSet commandSet in Model.Commands)
     {
-        <li>@Html.ActionLink(commandSet.Name, "Edit", new { id = commandSet.Id })</li>
+        <li>@Html.ActionLink(commandSet.Name, "Edit", new { id = commandSet.Id }) (<a href="#" class="executeButton" data-id="@commandSet.Id">Execute</a>)</li>
     }
 </ul>
 
 @Html.ActionLink("New Command Set", "New")
+
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            $(".executeButton").click(function (event) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/Execute",
+                    data: { id: $(this).data("id") },
+                    dataType: 'json',
+                });
+
+                event.preventDefault();
+            });
+        });
+    </script>
+}

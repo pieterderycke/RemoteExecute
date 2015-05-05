@@ -52,13 +52,28 @@ namespace RemoteExecute.Controllers
         }
 
         [HttpPost]
-        public ActionResult Save(string name, IEnumerable<Command> commands)
+        public ActionResult Save(bool isNewCommand, int? id, string name, IEnumerable<Command> commands)
         {
-            if(!string.IsNullOrEmpty(name))
+            if (isNewCommand)
             {
-                commandRepository.AddCommandSet(new CommandSet() { Name = name, Commands = commands });
-                return Json("Commandset created successfully.");
+                if (!string.IsNullOrEmpty(name))
+                {
+                    commandRepository.AddCommandSet(new CommandSet() { Name = name, Commands = commands });
+                    return Json("Commandset created successfully.");
+                }
             }
+            else
+            {
+                commandRepository.UpdateCommandSet(id.Value, name, commands);
+                return Json("Commandset updated successfully.");
+            }
+
+            return null;
+        }
+
+        [HttpPost]
+        public ActionResult Execute(int id)
+        {
             return null;
         }
     }

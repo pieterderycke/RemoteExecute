@@ -31,5 +31,12 @@ namespace RemoteExecute.Stubs
             command.Id = commands.Count;
             commands.Add(command);
         }
+
+        public void UpdateCommandSet(int id, string name, IEnumerable<Command> commands)
+        {
+            CommandSet commandSet = this.commands[id];
+            commandSet.Name = name;
+            commandSet.Commands = commands;
+        }
     }
 }
