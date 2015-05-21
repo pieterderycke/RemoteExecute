@@ -4,7 +4,7 @@
     self.name = ko.observable(name);
     self.commands = ko.observableArray(commands);
     self.selectedCommand = ko.observable();
-    self.commandTypes = { 'SSH': ['Mac Server', 'Synology NAS'], 'PowerShell': ['A Windows Server'] };
+    self.commandTypes = commandTypes;
 
     self.addCommand = function () {
         var commandType = self.selectedCommand();

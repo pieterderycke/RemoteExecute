@@ -176,6 +176,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Util\JavaScriptHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\accordion.css" />
@@ -261,6 +262,10 @@
     <ProjectReference Include="..\RemoteExecute.Domain\RemoteExecute.Domain.csproj">
       <Project>{eda964c8-b0fb-4a79-85d2-ffd6f89bc3ed}</Project>
       <Name>RemoteExecute.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RemoteExecute.Engine\RemoteExecute.Engine.csproj">
+      <Project>{5926b3fd-08b8-438e-893d-de7e921e1d57}</Project>
+      <Name>RemoteExecute.Engine</Name>
     </ProjectReference>
     <ProjectReference Include="..\RemoteExecute.Stubs\RemoteExecute.Stubs.csproj">
       <Project>{ce2ef036-49d8-4e5e-bedf-d88360347f92}</Project>

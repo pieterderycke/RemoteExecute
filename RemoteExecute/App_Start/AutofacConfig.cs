@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using RemoteExecute.DataLayer;
 using RemoteExecute.Domain;
 using RemoteExecute.Stubs;
+using RemoteExecute.Engine;
 
 namespace RemoteExecute
 {
@@ -23,6 +24,9 @@ namespace RemoteExecute
 
             builder.RegisterType<InMemoryCommandSetRepository>().As<ICommandSetRepository>()
                 .SingleInstance();
+            builder.RegisterType<InMemoryServerRepository>().As<IServerRepository>()
+                .SingleInstance();
+            builder.RegisterType<ExecutionEngine>().As<IExecutionEngine>();
 
             // Set the dependency resolver to be Autofac.
             var container = builder.Build();

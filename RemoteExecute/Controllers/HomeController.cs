@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using RemoteExecute.Domain;
 using RemoteExecute.Models;
+using RemoteExecute.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,15 @@ namespace RemoteExecute.Controllers
     public class HomeController : Controller
     {
         private readonly ICommandSetRepository commandRepository;
+        private readonly IServerRepository serverRepository;
+        private readonly IExecutionEngine executionEngine;
 
-        public HomeController(ICommandSetRepository commandRepository)
+        public HomeController(ICommandSetRepository commandRepository, IServerRepository serverRepository, 
+            IExecutionEngine executionEngine)
         {
             this.commandRepository = commandRepository;
+            this.serverRepository = serverRepository;
+            this.executionEngine = executionEngine;
         }
 
         // GET: Home
@@ -29,11 +35,14 @@ namespace RemoteExecute.Controllers
 
         public ActionResult New()
         {
+            IEnumerable<Server> servers = serverRepository.GetServers();
+
             CommandEditViewModel model = new CommandEditViewModel();
             model.IsNewCommand = true;
             model.Id = null;
             model.Name = null;
             model.Commands = "undefined";
+            model.CommandTypes = JavaScriptHelper.Serialize(servers);
 
             return View("Edit", model);
         }
@@ -41,12 +50,14 @@ namespace RemoteExecute.Controllers
         public ActionResult Edit(int id)
         {
             CommandSet commandSet = commandRepository.GetCommandSet(id);
+            IEnumerable<Server> servers = serverRepository.GetServers();
 
             CommandEditViewModel model = new CommandEditViewModel();
             model.IsNewCommand = false;
             model.Id = id;
             model.Name = commandSet.Name;
             model.Commands = JsonConvert.SerializeObject(commandSet.Commands);
+            model.CommandTypes = JavaScriptHelper.Serialize(servers);
 
             return View(model);
         }
@@ -74,6 +85,7 @@ namespace RemoteExecute.Controllers
         [HttpPost]
         public ActionResult Execute(int id)
         {
+            //return executionEngine.Execute(;
             return null;
         }
     }

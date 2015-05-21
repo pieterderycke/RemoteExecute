@@ -13,5 +13,6 @@ namespace RemoteExecute.Models
         public int? Id { get; set; }
         public string Name { get; set; }
         public string Commands { get; set; }
+        public string CommandTypes { get; set; }
     }
 }

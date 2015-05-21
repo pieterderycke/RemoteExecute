@@ -15,5 +15,8 @@ namespace RemoteExecute.Domain
 
         [DataMember(Name = "text")]
         public string Text { get; set; }
+
+        [DataMember(Name = "serverId")]
+        public int ServerId { get; set; }
     }
 }
